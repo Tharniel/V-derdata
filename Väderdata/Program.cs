@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            ReadFile.ReadAll("tempdata5-med fel.txt");
         }
     }
 }
