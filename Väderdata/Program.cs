@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-            ReadFile.ReadAll("tempdata5-med fel.txt");
+                ReadFile.HighestTemp("tempdata5-med fel.txt");
+                //ReadFile.AvgTempAndHumidity("tempdata5-med fel.txt");
+                //ReadFile.ReadAll("tempdata5-med fel.txt");
+
         }
     }
 }
