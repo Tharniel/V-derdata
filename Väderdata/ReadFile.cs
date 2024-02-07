@@ -95,7 +95,7 @@ namespace Väderdata
                         int month = int.Parse(match.Groups["Month"].Value);
                         string location = match.Groups["Location"].Value;
 
-                        if (year == 2016 && month >= 6 && month <= 12 && location == position)
+                        if (year == 2016 && month >= 6 && month <= 12 && location == position && day < 32)
                         {
                             string date = $"{day} : {month} : {year}";
                             double temp = double.Parse(match.Groups["Temp"].Value.Replace('.', ','));
@@ -163,7 +163,7 @@ namespace Väderdata
                     }
                     line = reader.ReadLine();
                 }
-                var sortedByTemp = highestTemp.OrderBy(entry => entry.Temp).ToList();
+                var sortedByTemp = highestTemp.OrderByDescending(entry => entry.Temp).ToList();
                 int i = 1;
 
                 if(keyPress == 1)

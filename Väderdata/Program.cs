@@ -6,29 +6,38 @@ namespace Väderdata
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Choose which data you'd like to see\n1.Indoor\n2.Outdoor");
+            while (true)
             {
-                var key = Console.ReadKey(true);
-                switch(key.KeyChar)
+                Console.ReadKey(true);
+                Console.Clear();
+                Console.WriteLine("Choose which data you'd like to see\n1.Indoor\n2.Outdoor");
                 {
-                    case '1':
-                        IndoorMenu();
-                        break;
-                    case '2':
-                        OutDoorMenu();
-                        break;
+
+                    var key = Console.ReadKey(true);
+
+                    switch (key.KeyChar)
+                    {
+                        case '1':
+                            IndoorMenu();
+                            break;
+                        case '2':
+                            OutDoorMenu();
+                            break;                        
+                    }
                 }
             }
+            
         }
 
         internal static void IndoorMenu()
         {
             Console.Clear();
 
-            Console.WriteLine("1.HighestTemp\n2.HighestHumidity\n3.MoldRisk\n4.Autumn\n5.Winter\n6.AverageTempAndHumidity");
+            Console.WriteLine("1.HighestTemp\n2.HighestHumidity\n3.MoldRisk\n4.AverageTempAndHumidity");
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Inne";
+
             switch (key.KeyChar)
             {
                 case '1':
