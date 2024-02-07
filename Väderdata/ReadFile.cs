@@ -50,14 +50,15 @@ namespace Väderdata
                 {
                     double avgTemp = totalTemp / amountOfDataInputs;
                     int avgHumidity = totalHumidity / amountOfDataInputs;
-                    Console.WriteLine("Temp: " + avgTemp);
-                    Console.WriteLine("Humidity: " + avgHumidity);
+                    Console.WriteLine("Temp: " + Math.Round(avgTemp, 1) + "°C");
+                    Console.WriteLine("Humidity: " + avgHumidity + "%");
                     Console.WriteLine("Data inputs: " + amountOfDataInputs);
                 }
                 else
                 {
                     Console.WriteLine("Inga matchande data finns");
                 }
+                Console.ReadKey(true);
             }
         }
 
@@ -97,7 +98,7 @@ namespace Väderdata
 
                         if (year == 2016 && month >= 6 && month <= 12 && location == position && day < 32)
                         {
-                            string date = $"{day} : {month} : {year}";
+                            string date = $"{day + "/", -3}{month, -2} - {year}";
                             double temp = double.Parse(match.Groups["Temp"].Value.Replace('.', ','));
                             int humidity = int.Parse(match.Groups["Humidity"].Value);
 
@@ -169,22 +170,22 @@ namespace Väderdata
                 if(keyPress == 1)
                 {
                     foreach (var entry in sortedByTemp)
-
                     {
-
-                        Console.WriteLine($"Day {i} {entry.Date} - Temp: {entry.Temp}");
+                        Console.WriteLine($"Day {i + ":", -4} {entry.Date} | Temp: {Math.Round(entry.Temp, 1)}°C");
                         i++;
                     }
-                    
+                    Console.ReadKey(true);
+
                 }
                 else if(keyPress == 2)
                 {
                     var sortedByHumidity = highestHumidity.OrderBy(entry => entry.Humidity).ToList();
                     foreach (var entry in sortedByHumidity)
                     {
-                        Console.WriteLine($"Day {i} {entry.Date} - Humidity: {entry.Humidity} %");
+                        Console.WriteLine($"Day {i, 3} {entry.Date} | Humidity: {Math.Round(entry.Humidity, 2)} %");
                         i++;
                     }
+                    Console.ReadKey(true);
                 }
 
                 else if(keyPress == 3)
@@ -192,18 +193,28 @@ namespace Väderdata
                     var sortedByMoldRisk = highestMoldRisk.OrderByDescending(entry => entry.moldRisk).ToList();
                     foreach( var entry in sortedByMoldRisk)
                     {
-                        Console.WriteLine($"Day {i} {entry.Date} - Moldrisk: {entry.moldRisk} %");
+                        if(entry.moldRisk < 0)
+                        {
+                            Console.WriteLine($"Day {i,3} {entry.Date} | Moldrisk: 0 %");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Day {i,3} {entry.Date} | Moldrisk: {Math.Round(entry.moldRisk, 2)} %");
+                        }
+                        
                         i++;
                     }
+                    Console.ReadKey(true);
                 }
 
                 else if(keyPress == 4)
                 {
                     foreach(var entry in autumnCountDay)
                     {
-                        Console.WriteLine($"Index {i} {entry.Date} - Temp: {entry.Temp}");
+                        Console.WriteLine($"Index {i, 3} {entry.Date} | Temp: {Math.Round(entry.Temp, 1)}°C");
                         i++;
                     }
+                    Console.ReadKey(true);
                 }
                 else if (keyPress == 5 )
                 {
@@ -215,11 +226,11 @@ namespace Väderdata
                     {
                         foreach (var entry in winterCountDay)
                         {
-                            Console.WriteLine($"Index {i} {entry.Date} - Temp: {entry.Temp}");
+                            Console.WriteLine($"Index {i, 3} {entry.Date} | Temp: {Math.Round(entry.Temp, 1)}°C");
                             i++;
                         }
                     }
-                    
+                    Console.ReadKey(true);
                 }
 
             }

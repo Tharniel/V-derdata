@@ -8,7 +8,7 @@ namespace Väderdata
         {
             while (true)
             {
-                Console.ReadKey(true);
+                
                 Console.Clear();
                 Console.WriteLine("Choose which data you'd like to see\n1.Indoor\n2.Outdoor");
                 {
@@ -33,7 +33,8 @@ namespace Väderdata
         {
             Console.Clear();
 
-            Console.WriteLine("1.HighestTemp\n2.HighestHumidity\n3.MoldRisk\n4.AverageTempAndHumidity");
+            Console.WriteLine("1.Order by highest temperature\n2.Order by lowest humidity\n3.Order by highest risk for mold\n" +
+                "4.Check temp/humidity for specific date");
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Inne";
@@ -42,7 +43,6 @@ namespace Väderdata
             {
                 case '1':
                     keyPress = 1;
-
                     break;
                 case '2':
                     keyPress = 2;
@@ -62,7 +62,8 @@ namespace Väderdata
         {
             Console.Clear();
 
-            Console.WriteLine("1.HighestTemp\n2.HighestHumidity\n3.MoldRisk\n4.Autumn\n5.Winter\n6.AverageTempAndHumidity");
+            Console.WriteLine("1.Order by highest temperature\n2.Order by lowest humidity\n3.Order by highest risk for mold\n" +
+                "4.Check when autumn officially occured\n5.Check when winter officially occured\n6.Check temp/humidity for specific date");
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Ute";
