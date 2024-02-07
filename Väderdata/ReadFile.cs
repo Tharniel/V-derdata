@@ -93,64 +93,65 @@ namespace Väderdata
         {
             using (StreamReader reader = new StreamReader(path + fileName))
             {
-                double totalTemp = 0;
                 int oldDay = 0;
-                double dayTemp = 0;
-                int dayHumidity = 0;
-                int amountOfDataInputs = 0;
-                List <double> amountOfDayInputs = new List<double>();
-                List<double> highestTemp = new List<double>();
-                List<int> highestHumidity = new List<int>();
-                int totalHumidity = 0;
-                Regex regex = new Regex("^(?<Year>2016)-(?<Month>[0-1][1-9])-(?<Day>[0-3][0-9]) (?<TimeOfDay>[0-2][0-9]:[0-5][0-9]:[0-5][0-9]),(?<Location>Inne|Ute),(?<Temp>-?\\d{1,2}.[0-9]),(?<Humidity>[0,1]?[0-9]{1,2})$");
+                double totalTemp = 0;
+                double totalHumidity = 0;
+                double avgTemp = 0;
+                double avgHumidity = 0;
+                int amountOfDataInput = 0;
+                var highestTemp = new List<(string Date, double Temp)>();
+                var highestHumidity = new List<(string Date, double Humidity)>();
                 string line = reader.ReadLine();
+                Regex regex = new Regex("^(?<Year>2016)-(?<Month>[0-1][1-9])-(?<Day>[0-3][0-9]) (?<TimeOfDay>[0-2][0-9]:[0-5][0-9]:[0-5][0-9]),(?<Location>Inne|Ute),(?<Temp>-?\\d{1,2}.[0-9]),(?<Humidity>[0,1]?[0-9]{1,2})$");
+
                 while (line != null)
                 {
                     Match match = regex.Match(line);
                     if (match.Success)
                     {
-                        int month = int.Parse(match.Groups["Month"].Value);
                         int day = int.Parse(match.Groups["Day"].Value);
                         int year = int.Parse(match.Groups["Year"].Value);
+                        int month = int.Parse(match.Groups["Month"].Value);
                         string location = match.Groups["Location"].Value;
-
-                        if (month >= 6 && month <= 12 && year == 2016 && location == "Ute")
+                        if (year == 2016 && month >= 6 && month <= 12 && location == "Ute")
                         {
-                            double Temp = double.Parse(match.Groups["Temp"].Value);
+                            string date = $"{day} : {month} : {year}";
+                            double temp = double.Parse(match.Groups["Temp"].Value);
                             int humidity = int.Parse(match.Groups["Humidity"].Value);
-                            totalHumidity += humidity;
-                            totalTemp += Temp;
 
-
-                            if (day == oldDay)
+                            if(day == oldDay)
                             {
-                                dayTemp += Temp;
-                                dayHumidity += humidity;
-                                amountOfDataInputs++;
+                                totalTemp += temp;
+                                totalHumidity += humidity;
+                                amountOfDataInput++;
                             }
                             else
                             {
-                                
+
+
+                                avgTemp = totalTemp / amountOfDataInput;
+                                avgHumidity = totalHumidity / amountOfDataInput;
+                                highestHumidity.Add((date, avgHumidity));
+                                highestTemp.Add((date, avgTemp));
+
                                 oldDay = day;
-                                highestTemp.Add(dayTemp);
-                                highestHumidity.Add(dayHumidity);
-                                dayTemp = 0;
-                                dayHumidity = 0;
+                                totalHumidity = 0;
+                                totalTemp = 0;
+                                avgHumidity = 0;
+                                avgTemp = 0;
+                                amountOfDataInput = 0;
                             }
                         }
                     }
                     line = reader.ReadLine();
                 }
 
-                if (amountOfDataInputs > 0)
-                {
-                    var test = from c in highestTemp select c;
-                    var test1 = highestTemp.OrderByDescending(temp => temp);
+                var sortedByTemp = highestTemp.OrderByDescending(entry => entry.Temp).ToList();
 
-                    foreach (var temp in test1)
-                    {
-                        Console.WriteLine(temp);
-                    }
+                foreach (var entry in sortedByTemp)
+                {
+                    Console.WriteLine($"{entry.Date} - Temp: {entry.Temp}");
+                    Thread.Sleep(1000);
                 }
             }
         }
