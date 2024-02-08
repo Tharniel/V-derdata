@@ -188,8 +188,8 @@ namespace Väderdata
                                 }
                                 if (avgTemp <= 0 && isWinter == false)
                                 {
-                                    
                                     winterCountDay.Add((date, avgTemp));
+
                                     if(closestToWinter == checkIfWinter)
                                     {
                                         closestToWinter++;
@@ -204,7 +204,6 @@ namespace Väderdata
                                 }
                                 else if (isWinter == false)
                                 {
-
                                     checkIfWinter = 0;                                   
                                     winterCountDay.Clear();
                                 }
