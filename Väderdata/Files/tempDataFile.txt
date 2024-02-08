@@ -1,0 +1,60 @@
+====Ute====
+====Temperature====
+Month: 6: 15,8°C
+Month: 7: 20,2°C
+Month: 8: 18,1°C
+Month: 9: 16,2°C
+Month: 10: 8,2°C
+Month: 11: 3,3°C
+Month: 12: 2,5°C
+====Humidity====
+Month: 6: 53,21%
+Month: 7: 52,98%
+Month: 8: 48,6%
+Month: 9: 60,42%
+Month: 10: 64,58%
+Month: 11: 83,49%
+Month: 12: 77,93%
+====Moldrisk====
+calculateMold = (avgHumidity - 78) * (avgTemp / 15)/0.22;
+Month: 6: 0%
+Month: 7: 0%
+Month: 8: 0%
+Month: 9: 0%
+Month: 10: 0%
+Month: 11: 5,51%
+Month: 12: 0%
+====When Autumn started====
+5/ 10 - 2016
+====When Winter was closest to start====
+7/ 11 - 2016
+Month: 7/ 11 - 2016 Temp: -0,98
+Month: 8/ 11 - 2016 Temp: -2
+Month: 9/ 11 - 2016 Temp: -1,79
+Month: 10/11 - 2016 Temp: -0,19
+====Inne====
+====Temperature====
+Month: 6: 24,7°C
+Month: 7: 26,3°C
+Month: 8: 25,6°C
+Month: 9: 23,3°C
+Month: 10: 22,4°C
+Month: 11: 22,8°C
+Month: 12: 21,8°C
+====Humidity====
+Month: 6: 28,75%
+Month: 7: 41,63%
+Month: 8: 34,64%
+Month: 9: 41,6%
+Month: 10: 27,27%
+Month: 11: 19,07%
+Month: 12: 15,82%
+====Moldrisk====
+calculateMold = (avgHumidity - 78) * (avgTemp / 15)/0.22;
+Month: 6: 0%
+Month: 7: 0%
+Month: 8: 0%
+Month: 9: 0%
+Month: 10: 0%
+Month: 11: 0%
+Month: 12: 0%

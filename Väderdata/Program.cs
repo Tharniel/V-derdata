@@ -34,7 +34,7 @@ namespace Väderdata
             Console.Clear();
 
             Console.WriteLine("1.Order by highest temperature\n2.Order by lowest humidity\n3.Order by highest risk for mold\n" +
-                "4.Check temp/humidity for specific date");
+                "4.Check temp/humidity for specific date\n5.MonthTemp");
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Inne";
@@ -52,6 +52,10 @@ namespace Väderdata
                     break;
                 case '4':
                     ReadFile.AvgTempAndHumidity(location, "tempdata5-med fel.txt");
+                    break;
+                case '5':
+                    location = "Ute";
+                    keyPress = 6;
                     break;
             }
             ReadFile.TemperatureData(keyPress, location, "tempdata5-med fel.txt");
@@ -88,6 +92,7 @@ namespace Väderdata
                     ReadFile.AvgTempAndHumidity(location, "tempdata5-med fel.txt");
                     break;
                 case '7':
+                    
                     keyPress = 6;
                     break;
             }
