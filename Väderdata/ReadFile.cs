@@ -5,8 +5,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Väderdata
 {
+    public delegate void MyDelegate(string msg);
     internal class ReadFile
     {
+        public static void DisplayMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
         public static string path = "../../../Files/";
 
         public static void AvgTempAndHumidity(string position, string fileName)
@@ -25,7 +31,6 @@ namespace Väderdata
                 double inputMonth = int.Parse(Console.ReadLine());
                 Console.WriteLine("Input day in numbers: ");
                 double inputDay = int.Parse(Console.ReadLine());
-
 
                 while (line != null)
                 {
@@ -60,11 +65,12 @@ namespace Väderdata
                 }
                 else
                 {
-                    Console.WriteLine("Inga matchande data finns");
+                    Console.WriteLine("No matching data was found.");
                 }
                 Console.ReadKey(true);
             }
         }
+
         public static void TemperatureData(int keyPress, string position, string fileName)
         {
             Console.Clear();
@@ -354,11 +360,7 @@ namespace Väderdata
                                     writer.WriteLine($"Month: {entry.Date} Temp: {Math.Round(entry.Temp, 2)}");
                                 }
                             }
-                            
                         }
-                        
-                       
-
                     } 
                     if(position == "Ute")
                     {
@@ -368,10 +370,7 @@ namespace Väderdata
                     Console.WriteLine("Data successfully saved!");
                     Console.ReadKey(true);
                 }
-
             }
         }
-
-        
     }
 }

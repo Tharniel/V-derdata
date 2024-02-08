@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using static Väderdata.ReadFile;
 
 namespace Väderdata
 {
@@ -8,11 +8,15 @@ namespace Väderdata
         {
             while (true)
             {
-                
                 Console.Clear();
-                Console.WriteLine("Choose which data you'd like to see\n1.Indoor\n2.Outdoor");
-                {
 
+                MyDelegate del = DisplayMessage;
+                del("Choose which data you'd like to see:");
+                del("1. Indoor");
+                del("2. Outdoor");
+                del("3. Save summary to file");
+
+                {
                     var key = Console.ReadKey(true);
 
                     switch (key.KeyChar)
@@ -22,19 +26,27 @@ namespace Väderdata
                             break;
                         case '2':
                             OutDoorMenu();
-                            break;                        
+                            break;
+                        case '3':
+                            var location = "Ute";
+                            int keyPress = 6;
+                            TemperatureData(keyPress, location, "tempdata5-med fel.txt");
+                            break;
                     }
                 }
             }
-            
         }
 
         internal static void IndoorMenu()
         {
             Console.Clear();
 
-            Console.WriteLine("1.Order by highest temperature\n2.Order by lowest humidity\n3.Order by highest risk for mold\n" +
-                "4.Check temp/humidity for specific date\n5.MonthTemp");
+            MyDelegate del = DisplayMessage;
+            del("1. Order by highest temperature");
+            del("2. Order by lowest humidity");
+            del("3. Order by highest risk for mold");
+            del("4. Check temp/humidity for specific date");
+
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Inne";
@@ -51,23 +63,24 @@ namespace Väderdata
                     keyPress = 3;
                     break;
                 case '4':
-                    ReadFile.AvgTempAndHumidity(location, "tempdata5-med fel.txt");
-                    break;
-                case '5':
-                    location = "Ute";
-                    keyPress = 6;
+                    AvgTempAndHumidity(location, "tempdata5-med fel.txt");
                     break;
             }
-            ReadFile.TemperatureData(keyPress, location, "tempdata5-med fel.txt");
-            
+            TemperatureData(keyPress, location, "tempdata5-med fel.txt");
         }
 
         internal static void OutDoorMenu()
         {
             Console.Clear();
 
-            Console.WriteLine("1.Order by highest temperature\n2.Order by lowest humidity\n3.Order by highest risk for mold\n" +
-                "4.Check when autumn officially occured\n5.Check when winter officially occured\n6.Check temp/humidity for specific date\n7.MonthTemp");
+            MyDelegate del = DisplayMessage;
+            del("1. Order by highest temperature");
+            del("2. Order by lowest humidity");
+            del("3. Order by highest risk for mold");
+            del("4. Check when autumn officially occured");
+            del("5. Check when winter officially occured");
+            del("6. Check temp/humidity for specific date");
+
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Ute";
@@ -89,15 +102,10 @@ namespace Väderdata
                     keyPress = 5;
                     break;
                 case '6':
-                    ReadFile.AvgTempAndHumidity(location, "tempdata5-med fel.txt");
-                    break;
-                case '7':
-                    
-                    keyPress = 6;
+                    AvgTempAndHumidity(location, "tempdata5-med fel.txt");
                     break;
             }
-            ReadFile.TemperatureData(keyPress, location, "tempdata5-med fel.txt");
-
+            TemperatureData(keyPress, location, "tempdata5-med fel.txt");
         }
     }
 }
