@@ -62,7 +62,7 @@ namespace Väderdata
         {
             Console.Clear();
 
-            Console.WriteLine("1.HighestTemp\n2.HighestHumidity\n3.MoldRisk\n4.Autumn\n5.Winter\n6.AverageTempAndHumidity");
+            Console.WriteLine("1.HighestTemp\n2.HighestHumidity\n3.MoldRisk\n4.Autumn\n5.Winter\n6.AverageTempAndHumidity\n7.MonthTemp");
             var key = Console.ReadKey(true);
             int keyPress = 0;
             string location = "Ute";
@@ -85,6 +85,9 @@ namespace Väderdata
                     break;
                 case '6':
                     ReadFile.AvgTempAndHumidity(location, "tempdata5-med fel.txt");
+                    break;
+                case '7':
+                    keyPress = 6;
                     break;
             }
             ReadFile.TemperatureData(keyPress, location, "tempdata5-med fel.txt");

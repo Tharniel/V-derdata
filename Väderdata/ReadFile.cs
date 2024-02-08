@@ -4,7 +4,7 @@ namespace Väderdata
 {
     internal class ReadFile
     {
-        public static string path = "../../../Files/";        
+        public static string path = "../../../Files/";
 
         public static void AvgTempAndHumidity(string position, string fileName)
         {
@@ -60,17 +60,21 @@ namespace Väderdata
                 }
             }
         }
-
         public static void TemperatureData(int keyPress, string position, string fileName)
         {
             using (StreamReader reader = new StreamReader(path + fileName))
             {
+                int oldMonth = 0;
                 int oldDay = 0;
+                double totalTempMonth = 0;
                 double totalTemp = 0;
                 double totalHumidity = 0;
+                double totalHumidityMonth = 0;
                 double avgTemp = 0;
                 double avgHumidity = 0;
+                double avgTempMonth = 0;
                 int amountOfDataInput = 0;
+                int amountOfDataInputMonth = 0;
                 int checkIfAutumn = 0;
                 bool isAutumn = false;
                 int checkIfWinter = 0;
@@ -81,6 +85,7 @@ namespace Väderdata
                 var highestMoldRisk = new List<(string Date, double moldRisk)>();
                 var autumnCountDay = new List<(string Date, double Temp)>();
                 var winterCountDay = new List<(string Date, double Temp)>();
+                var MonthTempData = new List<(int Date, double Temp)>();
 
                 string line = reader.ReadLine();
                 Regex regex = new Regex("^(?<Year>2016)-(?<Month>[0-1][0-9])-(?<Day>[0-3][0-9]) (?<TimeOfDay>[0-2][0-9]:[0-5][0-9]:[0-5][0-9]),(?<Location>Inne|Ute),(?<Temp>-?\\d{1,2}.[0-9]),(?<Humidity>[0,1]?[0-9]{1,2})$");
@@ -98,7 +103,7 @@ namespace Väderdata
                         if (year == 2016 && month >= 6 && month <= 12 && location == position && day < 32)
                         {
                             string date = $"{day} : {month} : {year}";
-                            double temp = double.Parse(match.Groups["Temp"].Value.Replace('.', ','));
+                            double temp = double.Parse(match.Groups["Temp"].Value/*.Replace('.', ',')*/);
                             int humidity = int.Parse(match.Groups["Humidity"].Value);
 
                             if (day == oldDay || oldDay == 0)
@@ -107,7 +112,24 @@ namespace Väderdata
                                 totalTemp += temp;
                                 totalHumidity += humidity;
                                 amountOfDataInput++;
-                                
+                                if (month == oldMonth || oldMonth == 0)
+                                {
+                                    oldMonth = month;
+                                    totalTempMonth += temp;
+                                    totalHumidityMonth += humidity;
+                                    amountOfDataInputMonth++;
+                                }
+                                else
+                                {
+                                    avgTempMonth = totalTempMonth / amountOfDataInputMonth;
+                                    MonthTempData.Add((oldMonth, avgTempMonth));
+
+                                    oldMonth = month;
+                                    totalTemp = 0;
+                                    avgTempMonth = 0;
+                                    amountOfDataInputMonth = 0;
+
+                                }
                             }
                             else
                             {
@@ -153,11 +175,11 @@ namespace Väderdata
                                 }
 
                                 oldDay = day;
-                                totalHumidity = 0;
-                                totalTemp = 0;
+                                totalHumidity = humidity;
+                                totalTemp = temp;
                                 avgHumidity = 0;
                                 avgTemp = 0;
-                                amountOfDataInput = 0;
+                                amountOfDataInput = 1;
                             }
                         }
                     }
@@ -220,6 +242,16 @@ namespace Väderdata
                         }
                     }
                     
+                }
+                else if (keyPress == 6)
+                {
+                    var sortedByTempMonth = MonthTempData.ToList();
+
+                    foreach (var entry in sortedByTempMonth)
+                    {
+                        Console.WriteLine($"Index {i} {entry.Date}: {entry.Temp}");
+                        i++;
+                    }
                 }
 
             }
