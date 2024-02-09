@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Xml;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -61,7 +62,8 @@ namespace Väderdata
                     int avgHumidity = totalHumidity / amountOfDataInputs;
                     Console.WriteLine("Temp: " + Math.Round(avgTemp, 1) + "°C");
                     Console.WriteLine("Humidity: " + avgHumidity + "%");
-                    Console.WriteLine("Data inputs: " + amountOfDataInputs);
+                    var datainput = "Data inputs: " + amountOfDataInputs;
+                    datainput.Cw();
                 }
                 else
                 {
@@ -95,6 +97,7 @@ namespace Väderdata
                 int closestToWinter = 0;
                 bool isWinter = false;
                 string date = "";
+                string oldDate = "";
 
                 var highestTemp = new List<(string Date, double Temp)>();
                 var highestHumidity = new List<(string Date, double Humidity)>();
@@ -128,6 +131,7 @@ namespace Väderdata
                             if (day == oldDay || oldDay == 0)
                             {
                                 oldDay = day;
+                                oldDate = date; 
                                 totalTemp += temp;
                                 totalHumidity += humidity;
                                 amountOfDataInput++;
@@ -166,15 +170,15 @@ namespace Väderdata
                                 avgHumidity = totalHumidity / amountOfDataInput;
 
                                 highestHumidity.Add((date, avgHumidity));
-                                highestTemp.Add((date, avgTemp));
+                                highestTemp.Add((oldDate, avgTemp));
 
                                 calculateMold = (avgHumidity - 78) * (avgTemp / 15)/0.22;
-                                highestMoldRisk.Add((date, calculateMold));
+                                highestMoldRisk.Add((oldDate, calculateMold));
 
                                 if (avgTemp <= 10 && isAutumn == false)
                                 {
                                     checkIfAutumn++;
-                                    autumnCountDay.Add((date, avgTemp));
+                                    autumnCountDay.Add((oldDate, avgTemp));
 
                                     if(checkIfAutumn == 5)
                                     {
@@ -214,6 +218,7 @@ namespace Väderdata
                                 avgHumidity = 0;
                                 avgTemp = 0;
                                 amountOfDataInput = 1;
+                                oldDate = date;
                             }
                         }
                     }
