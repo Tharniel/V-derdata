@@ -1,4 +1,3 @@
-
 ====Ute====
 ====Temperature====
 Month: 6: 15,8°C

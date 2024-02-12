@@ -34,7 +34,6 @@ namespace Väderdata
                             string tempDataFile = "tempDataFile.txt";
                             using (StreamWriter writer = new StreamWriter(path + tempDataFile, false))
                             {
-                                writer.WriteLine("");
                             }
                                 TemperatureData(keyPress, location, "tempdata5-med fel.txt");
                             break;
