@@ -1,3 +1,4 @@
+
 ====Ute====
 ====Temperature====
 Month: 6: 15,8°C
@@ -27,11 +28,11 @@ Month: 12: 0%
 ====When Autumn started====
 4/ 10 - 2016
 ====When Winter was closest to start====
-7/ 11 - 2016
-Month: 7/ 11 - 2016 Temp: -0,98
-Month: 8/ 11 - 2016 Temp: -2
-Month: 9/ 11 - 2016 Temp: -1,79
-Month: 10/11 - 2016 Temp: -0,19
+6/ 11 - 2016
+Month: 6/ 11 - 2016 Temp: -0,98
+Month: 7/ 11 - 2016 Temp: -2
+Month: 8/ 11 - 2016 Temp: -1,79
+Month: 9/ 11 - 2016 Temp: -0,19
 ====Inne====
 ====Temperature====
 Month: 6: 24,7°C

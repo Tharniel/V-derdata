@@ -192,12 +192,12 @@ namespace Väderdata
                                 }
                                 if (avgTemp <= 0 && isWinter == false)
                                 {
-                                    winterCountDay.Add((date, avgTemp));
+                                    winterCountDay.Add((oldDate, avgTemp));
 
                                     if(closestToWinter == checkIfWinter)
                                     {
                                         closestToWinter++;
-                                        closestToWinterList.Add((date, avgTemp));
+                                        closestToWinterList.Add((oldDate, avgTemp));
                                     }
                                     checkIfWinter++;
 
@@ -237,11 +237,11 @@ namespace Väderdata
                 avgTemp = totalTemp / amountOfDataInput;
                 avgHumidity = totalHumidity / amountOfDataInput;
 
-                highestHumidity.Add((date, avgHumidity));
-                highestTemp.Add((date, avgTemp));
+                highestHumidity.Add((oldDate, avgHumidity));
+                highestTemp.Add((oldDate, avgTemp));
 
                 calculateMold = (avgHumidity - 78) * (avgTemp / 15) / 0.22;
-                highestMoldRisk.Add((date, calculateMold));
+                highestMoldRisk.Add((oldDate, calculateMold));
 
                 var sortedByTemp = highestTemp.OrderByDescending(entry => entry.Temp).ToList();
                 int i = 1;

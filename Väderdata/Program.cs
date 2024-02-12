@@ -4,6 +4,7 @@ namespace Väderdata
 {
     internal class Program
     {
+        public static string path = "../../../Files/";
         static void Main(string[] args)
         {
             while (true)
@@ -30,7 +31,12 @@ namespace Väderdata
                         case '3':
                             var location = "Ute";
                             int keyPress = 6;
-                            TemperatureData(keyPress, location, "tempdata5-med fel.txt");
+                            string tempDataFile = "tempDataFile.txt";
+                            using (StreamWriter writer = new StreamWriter(path + tempDataFile, false))
+                            {
+                                writer.WriteLine("");
+                            }
+                                TemperatureData(keyPress, location, "tempdata5-med fel.txt");
                             break;
                     }
                 }
